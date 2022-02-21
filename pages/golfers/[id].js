@@ -12,35 +12,36 @@ const Golfers = () => {
   let scores
   if (user) { scores = user.scores }
 
-  if (userId) {
-    return (
-      <Layout id={getUserId()}>
-        <>
-          {error ? (
-            error
-          ) : (
-            <>
-              <h2>{user && scores && scores.length !== 0 ? (user.name + ' has ' + scores.length +
+  if (!userId) {
+    return null
+  }
+  return (
+    <Layout>
+      <>
+        {error ? (
+          error
+        ) : (
+          <>
+            <h2>{user && scores && scores.length !== 0 ? (user.name + ' has ' + scores.length +
                 ' scores') : (user && user.name + ' has no scores')}
-              </h2>
-              { user && userId === `${getUserId()}` && (
-                <ScorePostWidget/> )}
-              {scores && scores.map(score => (
-                <ScoreCard
-                  key={score.id}
-                  id={score.id}
-                  totalScore={score.total_score}
-                  playedAt={score.played_at}
-                  userId={score.user_id}
-                  userName={user.name}
-                />
-              ))}
-            </>
-          )}
-        </>
-      </Layout>
-    )
-  } else { return null }
+            </h2>
+            { user && userId === `${getUserId()}` && (
+              <ScorePostWidget/> )}
+            {scores && scores.map(score => (
+              <ScoreCard
+                key={score.id}
+                id={score.id}
+                totalScore={score.total_score}
+                playedAt={score.played_at}
+                userId={score.user_id}
+                userName={user.name}
+              />
+            ))}
+          </>
+        )}
+      </>
+    </Layout>
+  )
 }
 export default Golfers
 

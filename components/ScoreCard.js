@@ -8,6 +8,7 @@ const CONFIRM_MESSAGE = 'Are you sure you want to delete the score?'
 
 const ScoreCard = ({ id, playedAt, totalScore, userId, userName }) => {
   const { deleteScore } = useScoreDelete(id)
+  const router = useRouter()
 
   return (
     <div className="flex flex-row p-3 my-4 shadow-md lg:w-1/3 md:w-1/2">
@@ -16,12 +17,12 @@ const ScoreCard = ({ id, playedAt, totalScore, userId, userName }) => {
           {playedAt}
         </div>
         <div>
-          {useRouter().pathname !== '/golfers/[id]' && (
+          {router.pathname !== '/golfers/[id]' && (
             <Link href={`/golfers/${encodeURIComponent(userId)}`}>
               <a className="hover:underline text-blue-700">{userName}</a>
             </Link>
           )}
-          {useRouter().pathname === '/golfers/[id]' && (
+          {router.pathname === '/golfers/[id]' && (
             <span>{`${userName}`}</span>
           )}
           {` posted a score of ${totalScore}`}

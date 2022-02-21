@@ -1,10 +1,14 @@
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
-import { getUsername } from '../lib/userAuth'
+import { getUserId, getUsername } from '../lib/userAuth'
 
-const Layout = ({ children, id }) => {
+const Layout = ({ children }) => {
   const [ username, setUsername ] = useState('')
   useEffect(() => setUsername(getUsername()), [])
+
+  const [ userId, setUserId ] = useState('')
+  useEffect(() => setUserId(getUserId()), [])
+
   return (
     <>
       <header className="flex flex-row w-full px-10 py-2 shadow">
@@ -15,11 +19,9 @@ const Layout = ({ children, id }) => {
           </Link>
         </span>
         <span className="h-8 items-center text-xl ml-auto">
-          {id && (
-            <Link href={`/golfers/${id}`}>
-              <a className="hover:underline text-green-700">{username}</a>
-            </Link>
-          )}
+          <Link href={`/golfers/${userId}`}>
+            <a className="hover:underline text-green-700">{username}</a>
+          </Link>
           <span className="text-sm">
             {' ('}
             <Link href={'/logout'}>
